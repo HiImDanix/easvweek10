@@ -1,7 +1,6 @@
-Create database studentMagementdatabase
 
 create table Student(
-	Id uniqueidentifier NOT NULL,
+	Id uniqueidentifier PRIMARY KEY DEFAULT NEWID(),
 	FirstName nvarchar(50) NOT NULL,
 	LastName nvarchar(50) NOT NULL,
 	Email nvarchar(50) NOT NULL,
