@@ -1,6 +1,8 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using System;
+using StudentManagement;
 
 class Program
 {
@@ -13,18 +15,27 @@ class Program
             .Build();
 
         // Access configuration values
-        var mySetting = configuration["MySetting"];
-        Console.WriteLine($"MySetting: {mySetting}");
-
         var connectionString = configuration.GetConnectionString("DefaultConnection");
         Console.WriteLine($"ConnectionString: {connectionString}");
 
         // If using dependency injection, you can configure services here
         var serviceProvider = new ServiceCollection()
             .AddSingleton<IConfiguration>(configuration)
+            .AddDbContext<SMContext>()
             .BuildServiceProvider();
 
-        var configFromDI = serviceProvider.GetService<IConfiguration>();
-        Console.WriteLine($"Config from DI: {configFromDI["MySetting"]}");
+        using (var context = serviceProvider.GetService<SMContext>())
+        {
+            if (context == null)
+            {
+                Console.WriteLine("Error: Could not resolve SMContext.");
+            }
+            else
+            {
+                Console.WriteLine("SMContext initialized successfully.");
+            }
+        }
+
+        Console.WriteLine("Application setup complete.");
     }
 }
