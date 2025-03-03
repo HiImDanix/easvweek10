@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using StudentManagement;
 
 class Program
 {
@@ -22,6 +23,7 @@ class Program
         // If using dependency injection, you can configure services here
         var serviceProvider = new ServiceCollection()
             .AddSingleton<IConfiguration>(configuration)
+            .AddDbContext<SMContext>()
             .BuildServiceProvider();
 
         var configFromDI = serviceProvider.GetService<IConfiguration>();

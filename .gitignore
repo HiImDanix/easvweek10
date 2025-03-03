@@ -1,0 +1,5 @@
+bin/
+obj/
+.vs/
+StudentManagement/obj/Debug
+StudentManagement/bin/Debug
