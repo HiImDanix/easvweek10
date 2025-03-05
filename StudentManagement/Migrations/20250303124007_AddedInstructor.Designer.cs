@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagement;
 
@@ -11,9 +12,11 @@ using StudentManagement;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(SMContext))]
-    partial class SMContextModelSnapshot : ModelSnapshot
+    [Migration("20250303124007_AddedInstructor")]
+    partial class AddedInstructor
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace StudentManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<decimal>("Credits")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Credits")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("InstructorIdid")
                         .HasColumnType("uniqueidentifier");
@@ -47,35 +50,6 @@ namespace StudentManagement.Migrations
                     b.ToTable("Courses");
                 });
 
-            modelBuilder.Entity("StudentManagement.models.Department", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Budget")
-                        .HasColumnType("int");
-
-                    b.Property<Guid>("DepartmentHeadId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DepartmentHeadId")
-                        .IsUnique();
-
-                    b.ToTable("Departments");
-                });
-
             modelBuilder.Entity("StudentManagement.models.Enrollment", b =>
                 {
                     b.Property<int>("id")
@@ -85,9 +59,6 @@ namespace StudentManagement.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
                     b.Property<int>("CourseId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("FinalGrade")
                         .HasColumnType("int");
 
                     b.Property<int>("Grade")
@@ -124,7 +95,7 @@ namespace StudentManagement.Migrations
 
                     b.HasKey("id");
 
-                    b.ToTable("Instructors");
+                    b.ToTable("Instructor");
                 });
 
             modelBuilder.Entity("StudentManagement.models.Student", b =>
@@ -170,23 +141,6 @@ namespace StudentManagement.Migrations
                         .IsRequired();
 
                     b.Navigation("InstructorId");
-                });
-
-            modelBuilder.Entity("StudentManagement.models.Department", b =>
-                {
-                    b.HasOne("StudentManagement.models.Instructor", "DepartmentHead")
-                        .WithOne("Department")
-                        .HasForeignKey("StudentManagement.models.Department", "DepartmentHeadId")
-                        .OnDelete(DeleteBehavior.SetNull)
-                        .IsRequired();
-
-                    b.Navigation("DepartmentHead");
-                });
-
-            modelBuilder.Entity("StudentManagement.models.Instructor", b =>
-                {
-                    b.Navigation("Department")
-                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

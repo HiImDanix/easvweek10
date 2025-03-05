@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StudentManagement;
 
@@ -11,9 +12,11 @@ using StudentManagement;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(SMContext))]
-    partial class SMContextModelSnapshot : ModelSnapshot
+    [Migration("20250305103309_AddedDepartment")]
+    partial class AddedDepartment
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -30,8 +33,8 @@ namespace StudentManagement.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("id"));
 
-                    b.Property<decimal>("Credits")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<int>("Credits")
+                        .HasColumnType("int");
 
                     b.Property<Guid>("InstructorIdid")
                         .HasColumnType("uniqueidentifier");

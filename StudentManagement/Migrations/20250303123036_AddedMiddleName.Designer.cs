@@ -12,8 +12,8 @@ using StudentManagement;
 namespace StudentManagement.Migrations
 {
     [DbContext(typeof(SMContext))]
-    [Migration("20250303091726_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20250303123036_AddedMiddleName")]
+    partial class AddedMiddleName
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -85,6 +85,10 @@ namespace StudentManagement.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Lastname")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Middlename")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
