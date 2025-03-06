@@ -13,4 +13,4 @@ In the case of renaming the attribute Grade to FinalGrade, we used the "Rename c
 
 In the case of changing the Credits in the Course table from int to Decimal(5,2) the non-destructive approach was also used.
 * This could be a descructive change from the State-based approach, because if you change the datatype in the database, and not change the rest of the application to expect the new datatype, the system could break, but there would not be any data loss.
-* Working in the Entity Framework, we would change the model first in the code, and then migrate the database to fit the model, and there would not be anything that would break. this is the most non-destructive approact for this usecase.
+* Working in the Entity Framework, we would change the model first in the code, and then migrate the database to fit the model, and there would not be anything that would break. This is the most non-destructive approact for this usecase.
